@@ -3,10 +3,11 @@
     "beforeBuildCommand": "",
     "beforeDevCommand": "",
     "devPath": "http://127.0.0.1:8080",
-    "distDir": "../yew-cart/dist"
+    "distDir": "../yew-cart/dist",
+    "withGlobalTauri": true
   },
   "package": {
-    "productName": "t",
+    "productName": "Cart of products",
     "version": "0.1.0"
   },
   "tauri": {
@@ -57,7 +58,6 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "t",
         "width": 800
       }
     ]
