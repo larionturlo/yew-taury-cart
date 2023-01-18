@@ -2188,6 +2188,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "product"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "prokio"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2967,16 +2975,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "tauri-cart"
-version = "0.1.0"
-dependencies = [
- "serde",
- "serde_json",
- "tauri",
- "tauri-build",
-]
-
-[[package]]
 name = "tauri-codegen"
 version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3093,6 +3091,17 @@ dependencies = [
  "quick-xml 0.23.1",
  "strum",
  "windows 0.39.0",
+]
+
+[[package]]
+name = "tauri_cart"
+version = "0.1.0"
+dependencies = [
+ "product",
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-build",
 ]
 
 [[package]]
@@ -3898,17 +3907,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "yew-cart"
-version = "0.1.0"
-dependencies = [
- "js-sys",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "web-sys",
- "yew",
-]
-
-[[package]]
 name = "yew-macro"
 version = "0.20.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3921,4 +3919,17 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "yew_cart"
+version = "0.1.0"
+dependencies = [
+ "gloo-utils",
+ "js-sys",
+ "product",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
+ "yew",
 ]
