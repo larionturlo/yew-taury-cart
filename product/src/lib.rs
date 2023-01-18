@@ -8,12 +8,3 @@ pub struct Product {
 }
 
 pub type ProductList = Vec<Product>;
-
-pub fn parse_products_from_json(json: String) -> Result<ProductList, String> {
-    let prods = serde_json::from_str::<ProductList>(&json);
-
-    match prods {
-        Ok(products) => Ok(products),
-        Err(message) => Err(message.to_string())
-    }
-}

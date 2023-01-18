@@ -26,7 +26,10 @@ pub async fn get_name() -> String {
 
 pub async fn get_products() -> Result<ProductList,String> {
     return match JsFuture::from(invoke(JsValue::from_str("get_products"), JsValue::null())).await {
-        Ok(data) => Ok(data.into_serde::<ProductList>().unwrap()),
+        Ok(data) => match data.into_serde::<ProductList>() {
+            Ok(products) => Ok(products),
+            Err(message) => Err(message.to_string())
+        },
         Err(msg) =>  Err(match msg.as_string() {
             Some(msg) => msg,
             None => "Unknown error".to_owned()

@@ -1,6 +1,6 @@
 [workspace]
 members = [
     "product",
-    "tauri_cart",
-    "yew_cart"
+    "desktop",
+    "frontend"
 ]

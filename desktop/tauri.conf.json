@@ -3,7 +3,7 @@
     "beforeBuildCommand": "",
     "beforeDevCommand": "",
     "devPath": "http://127.0.0.1:8080",
-    "distDir": "../yew_cart/dist",
+    "distDir": "../frontend/dist",
     "withGlobalTauri": true
   },
   "package": {
@@ -29,7 +29,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.tauri-yew-cart.dev",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
