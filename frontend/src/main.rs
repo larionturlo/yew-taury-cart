@@ -3,17 +3,13 @@ use wasm_bindgen_futures::spawn_local;
 use yew::prelude::*;
 
 mod tauri;
+mod components;
+
+use components::product_list::ProductsListComponent;
 
 #[derive(Properties, PartialEq)]
 struct ProductsListProps {
     products: Vec<Product>,
-}
-
-#[function_component(ProductList)]
-fn product_list(ProductsListProps { products }: &ProductsListProps) -> Html {
-    products.iter().map(|product| html! {
-        <p>{format!("{}: ${}", product.name, product.price)}</p>
-    }).collect()
 }
 
 #[function_component]
@@ -51,8 +47,8 @@ fn App() -> Html {
         <div>
             <p>{ (*name).clone() }</p>
             <p>{ (*error_msg).clone() }</p>
-    
-            <ProductList products={(*products).clone()} />
+
+            <ProductsListComponent products={(*products).clone()} />
         </div>
     }
 }
