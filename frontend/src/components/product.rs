@@ -57,7 +57,7 @@ impl Component for ProductComponent {
         };
         html! {
             <div style={ "width: 33%; float: left" }>
-                <div style={ "width: 100%" }>{ &product.name }</div>
+                <div style={ "width: 100%; color:red;" }>{ &product.name }</div>
                 <div style={ "width: 50%; float:left;" }>
                     <button onclick={decrement_quantity(self.quantity)}>{ "-" }</button>
                     <input value={ format!{"{:}", self.quantity} } type="text" />

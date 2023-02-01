@@ -3,9 +3,7 @@ use std::collections::HashMap;
 use product::Product;
 use yew::{Properties, Component, Context, html, Html};
 
-#[path = "product.rs"]
-mod product_component;
-use self::product_component::ProductComponent;
+use crate::components::product::ProductComponent;
 
 
 
@@ -17,7 +15,7 @@ pub enum Msg {
 
 #[derive(Properties, PartialEq)]
 pub struct ProductsListProps {
-    pub products: Vec<Product>,
+    pub products: HashMap<String, Product>,
 }
 
 
@@ -41,16 +39,11 @@ impl Component for ProductsListComponent {
     type Message = Msg;
     type Properties = ProductsListProps;
 
-    fn create(_ctx: &Context<Self>) -> Self {
-        //let total_price = 0;
-        let products = _ctx.props().products.iter()
-            .map(|product| (product.name.to_owned(), (*product).to_owned()) )
-            .collect::<HashMap<String, Product>>();
-
-        return Self{
+    fn create(ctx: &Context<Self>) -> Self {
+        Self{
             total_price: 0,
-            products: products.clone()
-        };
+            products: ctx.props().products.clone()
+        }
     }
 
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
@@ -62,11 +55,8 @@ impl Component for ProductsListComponent {
         }
     }
 
-    fn changed(&mut self, _ctx: &Context<Self>, _old_props: &Self::Properties) -> bool {
-        self.products = _ctx.props().products.iter()
-            .map(|product| (product.name.to_owned(), (*product).to_owned()) )
-            .collect::<HashMap<String, Product>>();
-
+    fn changed(&mut self, ctx: &Context<Self>, _old_props: &Self::Properties) -> bool {
+        self.products = ctx.props().products.clone();
         self.recalc_total_price();
 
         true
@@ -79,7 +69,6 @@ impl Component for ProductsListComponent {
 
         html!{
             <div>
-                <h2>{ "Cart" }</h2>
                 <div>
                 { iner_html }
                 </div>
