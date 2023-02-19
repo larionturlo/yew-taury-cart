@@ -1,23 +1,15 @@
 use std::collections::HashMap;
 
 use product::Product;
-use yew::{Properties, Component, Context, html, Html};
+use yew::{Properties, Component, Context, html, Html, Callback};
 
-#[path = "product.rs"]
-mod product_component;
-use self::product_component::ProductComponent;
+use crate::components::product::ProductComponent;
 
-
-
-pub enum Msg {
-    Recalc(),
-    // QuantityProductChanged(String, i32)
-    // DeleteProduct(String),
-}
 
 #[derive(Properties, PartialEq)]
 pub struct ProductsListProps {
-    pub products: Vec<Product>,
+    pub products: HashMap<String, Product>,
+    pub on_edited: Callback<Product>
 }
 
 
@@ -38,48 +30,36 @@ impl ProductsListComponent {
 
 
 impl Component for ProductsListComponent {
-    type Message = Msg;
+    type Message = ();
     type Properties = ProductsListProps;
 
-    fn create(_ctx: &Context<Self>) -> Self {
-        //let total_price = 0;
-        let products = _ctx.props().products.iter()
-            .map(|product| (product.name.to_owned(), (*product).to_owned()) )
-            .collect::<HashMap<String, Product>>();
-
-        return Self{
+    fn create(ctx: &Context<Self>) -> Self {
+        Self{
             total_price: 0,
-            products: products.clone()
-        };
-    }
-
-    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
-        match msg {
-            Msg::Recalc() => {
-                self.recalc_total_price();
-                true
-            }
+            products: ctx.props().products.clone()
         }
     }
 
-    fn changed(&mut self, _ctx: &Context<Self>, _old_props: &Self::Properties) -> bool {
-        self.products = _ctx.props().products.iter()
-            .map(|product| (product.name.to_owned(), (*product).to_owned()) )
-            .collect::<HashMap<String, Product>>();
+    fn update(&mut self, _ctx: &Context<Self>, _msg: Self::Message) -> bool {
+        false
+    }
 
+    fn changed(&mut self, ctx: &Context<Self>, _old_props: &Self::Properties) -> bool {
+        self.products = ctx.props().products.clone();
         self.recalc_total_price();
 
         true
     }
 
-    fn view(&self, _ctx: &Context<Self>) -> Html {
-        let iner_html: Vec<Html> = self.products.iter().map(|product| html! {  
-            <ProductComponent product={ (*product.1).clone() } />
+    fn view(&self, ctx: &Context<Self>) -> Html {
+        
+        let iner_html: Vec<Html> = self.products.iter().map(move |product| {
+            let on_clicked = &ctx.props().on_edited;
+            html! { <ProductComponent product={ (*product.1).clone() } {on_clicked}/>}
         }).collect();
 
         html!{
             <div>
-                <h2>{ "Cart" }</h2>
                 <div>
                 { iner_html }
                 </div>
