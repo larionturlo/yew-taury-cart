@@ -3925,6 +3925,7 @@ dependencies = [
 name = "yew_cart"
 version = "0.1.0"
 dependencies = [
+ "gloo-console",
  "gloo-utils",
  "js-sys",
  "product",
